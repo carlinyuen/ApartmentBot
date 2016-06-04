@@ -19,6 +19,7 @@
   "dependencies": {
     "botbuilder": "^1.0.1",
     "dtrace-provider": "^0.6.0",
+    "forever": "^0.15.2",
     "restify": "^4.1.0"
   }
 }
