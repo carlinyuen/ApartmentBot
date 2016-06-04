@@ -1,4 +1,4 @@
-var restify = require('restify');
+// var restify = require('restify');
 var builder = require('botbuilder');
 
 // Create bot and add dialogs
@@ -30,7 +30,6 @@ bot.add('/profile', [
 
 exports.handler = function(event, context) {
     console.log("Initalized Bot...");
-    console.log(event);
     context.succeed("Hello World!");
 };
 
