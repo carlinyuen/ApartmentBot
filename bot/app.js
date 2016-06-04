@@ -30,7 +30,7 @@ bot.add('/', [
         //    session.send('Hello %s! I\'ll find you an apartment for less than $%d per month', session.userData.name, session.userData.price); 
         //}
         else if (session.userData.rooms && session.userData.rooms && session.userData.price) {
-             session.send('Hello %s! I\'ll find you an apartment for less than $%d per month with %d rooms', session.userData.name, session.userData.price, session.userData.rooms);    
+             session.send('Hello %s!!!! I\'ll find you an apartment for less than $%d per month with %d rooms', session.userData.name, session.userData.price, session.userData.rooms);    
         }
         else {
             session.send('crap...'); 
