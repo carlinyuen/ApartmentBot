@@ -18,6 +18,7 @@
   "homepage": "https://github.com/carlinyuen/ApartmentBot#readme",
   "dependencies": {
     "botbuilder": "^1.0.1",
+    "dtrace-provider": "^0.6.0",
     "restify": "^4.1.0"
   }
 }
