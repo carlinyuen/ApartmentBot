@@ -152,7 +152,7 @@ bot.add('/', [
 
         if (!session.userData.results && session.userData.bathrooms && session.userData.rooms && session.userData.price && session.userData.name && session.userData.borough && !session.userData.selection) {
             var location;
-            selectionResults = true;
+            session.userData.results = true;
 
             if (session.userData.manhattan_neighborhood) 
                 location = session.userData.manhattan_neighborhood.toLowerCase() + " " + session.userData.borough;
