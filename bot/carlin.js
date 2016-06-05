@@ -513,21 +513,36 @@ bot.add('/selection', [
     /*        session.send('map1'+ map1['listing']);
             */
 
-            if (session.userData.selection === '1')
-                session.send("You've selected the listing at " + map0['listing']);
-            else if (session.userData.selection === '2')
+            var address;
+            if (session.userData.selection === '1') {
+                address = map0['listing'];
+                session.send("You've selected the listing at " + address);
+            }
+            else if (session.userData.selection === '2') {
+                address = map1['listing'];
                 session.send("You've selected the listing at " + map1['listing']);
-            else if (session.userData.selection === '3')
+
+            }
+            else if (session.userData.selection === '3') {
                 session.send("You've selected the listing at " + map2['listing']);
-            else if (session.userData.selection === '4')
+                address = map2['listing'];
+            }
+            else if (session.userData.selection === '4') {
                 session.send("You've selected the listing at " + map3['listing']);
-            else if (session.userData.selection === '5')
+                address = map3['listing'];
+            }
+            else if (session.userData.selection === '5') {
                 session.send("You've selected the listing at " + map4['listing']);
-            else if (session.userData.selection === '6')
+                address = map4['listing'];
+            }
+            else if (session.userData.selection === '6') {
                 session.send("You've selected the listing at "+ map5['listing']);
+                address = map5['listing'];
+            }
             else
                 session.send('shoot!');
 
+            session.userData.address = address;
             //session.send("Sure, we'll get someone to help you find ")
 
         }
