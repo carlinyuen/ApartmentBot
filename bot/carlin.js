@@ -611,6 +611,8 @@ bot.add('/number', [
               if (!err) {
                 console.log(responseData.from);
                 console.log(responseData.body);
+              } else {
+                console.log(err);
               }
             });
             client.sendMessage({
@@ -620,6 +622,8 @@ bot.add('/number', [
               if (!err) {
                 console.log(responseData.from);
                 console.log(responseData.body);
+              } else {
+                console.log(err);
               }
             });
             client.sendMessage({
@@ -629,6 +633,8 @@ bot.add('/number', [
               if (!err) {
                 console.log(responseData.from);
                 console.log(responseData.body);
+              } else {
+                console.log(err);
               }
             });
         }
