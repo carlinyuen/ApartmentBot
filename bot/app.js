@@ -247,6 +247,22 @@ bot.add('/', [
                       map3['bath'] = bath;
                       map3['site'] = site;
                   }
+                  else if (i==4) {
+                      map4['type_nabe'] = type_nabe;
+                      map4['listing'] = listing;
+                      map4['price'] = price;
+                      map4['bed'] = bed;
+                      map4['bath'] = bath;
+                      map4['site'] = site;
+                  }
+                  else if (i==5) {
+                      map5['type_nabe'] = type_nabe;
+                      map5['listing'] = listing;
+                      map5['price'] = price;
+                      map5['bed'] = bed;
+                      map5['bath'] = bath;
+                      map5['site'] = site;
+                  }
 
                    //session.userData.apart1 = 'YES';
                  
