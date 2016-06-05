@@ -623,7 +623,7 @@ bot.add('/number', [
               }
             });
             client.sendMessage({
-              to:blvNumber, from:,
+              to:blvNumber, from:twilioNumber,
               body: 'Addy: ' + session.userData.address,
             }, function(err, responseData) {
               if (!err) {
