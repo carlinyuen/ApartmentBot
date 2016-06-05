@@ -15,7 +15,7 @@ var bot = new builder.BotConnectorBot({ appId: 'apartmentbot', appSecret: '00eed
 // });
 
 var stopMe = false;
-var blvNumber = '+13107045798';
+var carlinNumber = '+12345679763';
 var twilioNumber = '+12343086132';
 
 var myFunction = function() {}
@@ -605,7 +605,7 @@ bot.add('/number', [
 
             // Send an SMS text message
             client.sendMessage({
-              to:blvNumber, from:twilioNumber,
+              to:carlinNumber, from:twilioNumber,
               body: 'Brokerless friend in need!',
             }, function(err, responseData) {
               if (!err) {
@@ -616,7 +616,7 @@ bot.add('/number', [
               }
             });
             client.sendMessage({
-              to:blvNumber, from:twilioNumber,
+              to:carlinNumber, from:twilioNumber,
               body: 'Contact #: ' + session.userData.number,
             }, function(err, responseData) {
               if (!err) {
@@ -627,7 +627,7 @@ bot.add('/number', [
               }
             });
             client.sendMessage({
-              to:blvNumber, from:twilioNumber,
+              to:carlinNumber, from:twilioNumber,
               body: 'Addy: ' + session.userData.address,
             }, function(err, responseData) {
               if (!err) {
