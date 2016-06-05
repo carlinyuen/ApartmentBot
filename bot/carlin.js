@@ -132,6 +132,11 @@ bot.add('/', [
         else if (session.userData.results && session.userData.interest && session.userData.borough.toLowerCase() == 'manhattan' && session.userData.manhattan_neighborhood && !session.userData.contact) {
             session.beginDialog('/contact');
         }
+        else if (session.userData.contact && session.userData.results && session.userData.interest && session.userData.borough.toLowerCase() == 'manhattan' && session.userData.manhattan_neighborhood && !session.userData.contact) {
+        //    session.send("IIEIE");
+            session.beginDialog('/number');
+        }
+
         else {
             next();
         }
@@ -547,36 +552,68 @@ bot.add('/contact', [
             session.userData.results = false;
         }
         else if (results.response == 'yes') {
-            session.send("Great! Hold on one moment...")
+            //session.send("Great! Hold on one moment...")
+           // session.send("YES RESPONSE");
+            session.beginDialog('/number');
+        }
+        else {
+            session.send("Sure thing. You can still go and check it out yourself.")
+        }
+        //session.beginDialog('/');        session.beginDialog('/');
+    //    session.endDialog();
+    }
+]);
+
+
+bot.add('/number', [
+    function (session) {
+        builder.Prompts.text(session, "What's your phone number? We'll have someone get in touch with you about a visit to that apartment. They'll be able to FaceTime you when they visit.");
+    },
+    function (session, results) {
+        session.userData.number = results.response;
+        if (results.response == 'reset') {
+            session.userData.bathrooms = null;
+            session.userData.rooms = null;
+            session.userData.price = null;
+            session.userData.name = null;
+            session.userData.borough = null;
+            session.userData.selection = null;
+            session.userData.results = false;
+        }
+        else {
+            session.send("Great! You'll be contacted by a Brokerless teammember shortly...")
 
             //require the Twilio module and create a REST client
             var client = require('twilio')('AC93b9823919f052d8dcfeb434c68cba6c', '530457ab01624b26fe6baad1d3e42c8b');
 
-            //Send an SMS text message
+            // Send an SMS text message
             client.sendMessage({
-
-              to:'+12345679763', // Any number Twilio can deliver to
-              from: '+12343086132', // A number you bought from Twilio and can use for outbound communication
-              body: 'Brokerless friend in need! Visit '
-               + session.userData.selection || 'carlin\'s house'
-               + ', #: ' + session.userData.number || '1234',
-
-            }, function(err, responseData) { //this function is executed when a response is received from Twilio
-
-              if (!err) { // "err" is an error received during the request, if any
-
-              // "responseData" is a JavaScript object containing data received from Twilio.
-              // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
-              // http://www.twilio.com/docs/api/rest/sending-sms#example-1
-
-              console.log(responseData.from); // outputs "+14506667788"
-              console.log(responseData.body); // outputs "word to your mother."
-
-            }
-          });
-        }
-        else {
-            session.send("Sure thing. You can still go and check it out yourself.")
+              to:'+12345679763', from: '+12343086132',
+              body: 'Brokerless friend in need!',
+            }, function(err, responseData) {
+              if (!err) {
+                console.log(responseData.from);
+                console.log(responseData.body);
+              }
+            });
+            client.sendMessage({
+              to:'+12345679763', from: '+12343086132',
+              body: 'Contact #: ' + session.userData.number,
+            }, function(err, responseData) {
+              if (!err) {
+                console.log(responseData.from);
+                console.log(responseData.body);
+              }
+            });
+            client.sendMessage({
+              to:'+12345679763', from: '+12343086132',
+              body: 'Addy: ' + session.userData.address,
+            }, function(err, responseData) {
+              if (!err) {
+                console.log(responseData.from);
+                console.log(responseData.body);
+              }
+            });
         }
         //session.beginDialog('/');        session.beginDialog('/');
     //    session.endDialog();
