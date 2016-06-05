@@ -548,6 +548,32 @@ bot.add('/contact', [
         }
         else if (results.response == 'yes') {
             session.send("Great! Hold on one moment...")
+
+            //require the Twilio module and create a REST client
+            var client = require('twilio')('AC93b9823919f052d8dcfeb434c68cba6c', '530457ab01624b26fe6baad1d3e42c8b');
+
+            //Send an SMS text message
+            client.sendMessage({
+
+              to:'+12345679763', // Any number Twilio can deliver to
+              from: '+12343086132', // A number you bought from Twilio and can use for outbound communication
+              body: 'Brokerless friend in need! Visit '
+               + session.userData.selection || 'carlin\'s house'
+               + ', #: ' + session.userData.number || '1234',
+
+            }, function(err, responseData) { //this function is executed when a response is received from Twilio
+
+              if (!err) { // "err" is an error received during the request, if any
+
+              // "responseData" is a JavaScript object containing data received from Twilio.
+              // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
+              // http://www.twilio.com/docs/api/rest/sending-sms#example-1
+
+              console.log(responseData.from); // outputs "+14506667788"
+              console.log(responseData.body); // outputs "word to your mother."
+
+            }
+          });
         }
         else {
             session.send("Sure thing. You can still go and check it out yourself.")
