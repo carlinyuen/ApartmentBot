@@ -132,6 +132,11 @@ bot.add('/', [
         else if (session.userData.results && session.userData.interest && session.userData.borough.toLowerCase() == 'manhattan' && session.userData.manhattan_neighborhood && !session.userData.contact) {
             session.beginDialog('/contact');
         }
+        else if (session.userData.contact && session.userData.results && session.userData.interest && session.userData.borough.toLowerCase() == 'manhattan' && session.userData.manhattan_neighborhood && !session.userData.contact) {
+        //    session.send("IIEIE");
+            session.beginDialog('/number');
+        }
+      
         else {
             next();
         }
@@ -547,10 +552,36 @@ bot.add('/contact', [
             session.userData.results = false;
         }
         else if (results.response == 'yes') {
-            session.send("Great! Hold on one moment...")
+            //session.send("Great! Hold on one moment...")
+           // session.send("YES RESPONSE");
+            session.beginDialog('/number'); 
         }
         else {
             session.send("Sure thing. You can still go and check it out yourself.")
+        }
+        //session.beginDialog('/');        session.beginDialog('/');
+    //    session.endDialog();
+    }
+]);
+
+
+bot.add('/number', [
+    function (session) {
+        builder.Prompts.text(session, "What's your phone number? We'll have someone get in touch with you about a visit to that apartment. They'll be able to FaceTime you when they visit.");
+    },
+    function (session, results) {
+        session.userData.number = results.response;
+        if (results.response == 'reset') {
+            session.userData.bathrooms = null;
+            session.userData.rooms = null;
+            session.userData.price = null; 
+            session.userData.name = null;
+            session.userData.borough = null;
+            session.userData.selection = null;
+            session.userData.results = false;
+        }
+        else {
+            session.send("Great! You'll be contacted by a Brokerless teammember shortly...")
         }
         //session.beginDialog('/');        session.beginDialog('/');
     //    session.endDialog();
