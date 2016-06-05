@@ -73,12 +73,12 @@ map5['bath'] = '';
 map5['site'] = '';
 
 
-
+/*
      var myMap = new Map();
             for (var i = 0; i < 15; i++) {
                  myMap.set(i, {'type_nabe':'', 'listing':'', 'prince':'', 'bed':'', 'bath':'', 'site':''});
             };
-
+*/
 bot.add('/', [
     function (session, args, next) { //session.send("name:%s, price:%d", session.userData.name, session.userData.price);
         if (!session.userData.name) {
@@ -168,12 +168,13 @@ bot.add('/', [
                   console.log();
 
                  // listings[i] = {type_nabe, listing, price, bed, bath, site};
-                  myMap.get(i).type_nabe = type_nabe;
+              /*    myMap.get(i).type_nabe = type_nabe;
                   (myMap.get(i))['listing'] = listing;
                   myMap.get(i).price = price;
                   myMap.get(i).bed = bed;
                   myMap.get(i).bath = bath;
                   myMap.get(i).site = site;
+                  */
 
                   if (i==0) {
 
@@ -217,7 +218,7 @@ bot.add('/', [
 
                   
 //                  myMap.set(i, {'type_nabe':type_nabe, 'listing':listing, 'prince':price, 'bed':bed, 'bath':bath, 'site':site});
-                    if (i < 6) session.send("Listing #" + i + "\n" + myMap.get(i).type_nabe + "\n" + myMap.get(i).listing + "\n" + myMap.get(i).price + "\n" + myMap.get(i).bed + "\n" + myMap.get(i).bath + "\n" + myMap.get(i).site + "\n");
+                    if (i < 6) session.send("Listing #" + i + "\n" + type_nabe + "\n" + listing + "\n" + price + "\n" + bed + "\n" + bath + "\n" + site + "\n");
                     if (i == 6) session.beginDialog('/selection');
                  // session.send(myMap.get(i).listing);
                  // session.send(myMap.get(i).price);
