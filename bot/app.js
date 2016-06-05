@@ -345,7 +345,7 @@ bot.add('/', [
 ]);
 bot.add('/profile', [
     function (session) {
-         session.send('Welcome to brokerless! I\'ll help you find the prefect apartment.');
+         session.send('Welcome to brokerless! I\'ll help you find the perfect apartment.');
          builder.Prompts.text(session, 'What\'s your name?');
     },
     function (session, results) {
