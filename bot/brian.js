@@ -72,6 +72,25 @@ map5['bed'] = '';
 map5['bath'] = '';
 map5['site'] = '';
 
+var checkReset = function(x) {
+    if (x == 'reset') {
+        
+          //  session.send('Resetting');
+            session.userData.bathrooms = null;
+            session.userData.rooms = null;
+            session.userData.price = null; 
+            session.userData.name = null;
+            session.userData.borough = null;
+            session.userData.selection = null;
+            session.userData.results = false;
+           // session.send('Reset');
+            return true;
+        
+    }
+    else
+        return false;
+    
+}
 
 /*
      var myMap = new Map();
@@ -85,6 +104,7 @@ bot.add('/', [
             session.beginDialog('/profile');
         } 
         else if (!session.userData.price) {
+
             session.beginDialog('/price');
         }
         else if (!session.userData.rooms) {
@@ -107,6 +127,21 @@ bot.add('/', [
         }
     },
     function (session, results) {
+        session.userData.results = false; 
+
+        if (results.response == 'reset') {
+            session.userData.bathrooms = null;
+            session.userData.rooms = null;
+            session.userData.price = null; 
+            session.userData.name = null;
+            session.userData.borough = null;
+            session.userData.selection = null;
+            session.userData.results = false;
+            session.beginDialog('/');
+
+        }
+        
+        
       /*  if (session.userData.name && !session.userData.price) {
             session.send('Hello %s! Let\'s collect some info to help find you an apartment.', session.userData.name);
             session.beginDialog('/price');
@@ -114,8 +149,11 @@ bot.add('/', [
         //else if (session.userData.price && !session.userData.rooms) {
         //    session.send('Hello %s! I\'ll find you an apartment for less than $%d per month', session.userData.name, session.userData.price); 
         //}
-        if (session.userData.bathrooms && session.userData.rooms && session.userData.price && session.userData.name && session.userData.borough && !session.userData.selection) {
+
+        if (!session.userData.results && session.userData.bathrooms && session.userData.rooms && session.userData.price && session.userData.name && session.userData.borough && !session.userData.selection) {
             var location;
+            selectionResults = true;
+
             if (session.userData.manhattan_neighborhood) 
                 location = session.userData.manhattan_neighborhood.toLowerCase() + " " + session.userData.borough;
             else
@@ -219,13 +257,14 @@ bot.add('/', [
                   
 //                  myMap.set(i, {'type_nabe':type_nabe, 'listing':listing, 'prince':price, 'bed':bed, 'bath':bath, 'site':site});
                     if (i < 6) session.send("Listing #" + i + "\n" + type_nabe + "\n" + listing + "\n" + price + "\n" + bed + "\n" + bath + "\n" + site + "\n");
-                    if (i == 6) session.beginDialog('/selection');
+                    //if (i == 6) session.beginDialog('/selection');
                  // session.send(myMap.get(i).listing);
                  // session.send(myMap.get(i).price);
                   //console.log(myMap.get(i));
                 })
               
               }
+              session.beginDialog('/selection');
             })
 
           
@@ -248,10 +287,11 @@ bot.add('/', [
             //session.send('Great! I\'ll find you an apartment for less than $%d per month with %d rooms and %d bathrooms in %s', session.userData.price, session.userData.rooms, session.userData.bathrooms, session.userData.borough, session.userData.manhattan_neighborhood);    
         }
 
-        /*
+        
         else {
-            session.send('crap...'); 
-        }    */    
+            //session.send('(end)'); 
+            session.beginDialog('/');
+        }    
     }
 ]);
 bot.add('/profile', [
@@ -260,8 +300,21 @@ bot.add('/profile', [
          builder.Prompts.text(session, 'What\'s your name?');
     },
     function (session, results) {
-        session.userData.name = results.response;
-        session.beginDialog('/');//session.endDialog();
+        if (results.response == 'reset') {
+            session.userData.bathrooms = null;
+            session.userData.rooms = null;
+            session.userData.price = null; 
+            session.userData.name = null;
+            session.userData.borough = null;
+            session.userData.selection = null;
+            session.userData.results = false;
+
+        }
+        else {
+            session.userData.name = results.response;
+        }
+        session.beginDialog('/');
+
     }
 ]);
 
@@ -271,7 +324,18 @@ bot.add('/price', [
         builder.Prompts.text(session, "What's the most you'd want to pay per month?");
     },
     function (session, results) {
-        session.userData.price = results.response;
+        if (results.response == 'reset') {
+            session.userData.bathrooms = null;
+            session.userData.rooms = null;
+            session.userData.price = null; 
+            session.userData.name = null;
+            session.userData.borough = null;
+            session.userData.selection = null;
+            session.userData.results = false;
+        }
+        else {
+            session.userData.price = results.response;
+        }
         session.beginDialog('/');
     //    session.endDialog();
     }
@@ -282,8 +346,25 @@ bot.add('/rooms', [
         builder.Prompts.text(session, "How many bedrooms do you need?");
     },
     function (session, results) {
-        session.userData.rooms = results.response;
+        if (results.response == 'reset') {
+            session.userData.bathrooms = null;
+            session.userData.rooms = null;
+            session.userData.price = null; 
+            session.userData.name = null;
+            session.userData.borough = null;
+            session.userData.selection = null;
+            session.userData.results = false;
+        }
+        else {
+            session.userData.rooms = results.response;
+        }
         session.beginDialog('/');
+
+        /*
+        else {
+            session.send("HERE999");
+            session.beginDialog('/');
+        }*/
     //    session.endDialog();
     }
 ]);
@@ -293,7 +374,18 @@ bot.add('/bathrooms', [
         builder.Prompts.text(session, "How many bathrooms do you need?");
     },
     function (session, results) {
-        session.userData.bathrooms = results.response;
+        if (results.response == 'reset') {
+            session.userData.bathrooms = null;
+            session.userData.rooms = null;
+            session.userData.price = null; 
+            session.userData.name = null;
+            session.userData.borough = null;
+            session.userData.selection = null;
+            session.userData.results = false;
+        }
+        else {
+            session.userData.bathrooms = results.response;
+        }
         session.beginDialog('/');
     //    session.endDialog();
     }
@@ -304,9 +396,19 @@ bot.add('/borough', [
         builder.Prompts.text(session, "Which NYC borough would you like to live in? Manhattan, Brooklyn, Queen, Bronx, or Staten Island?");
     },
     function (session, results) {
-        session.userData.borough = results.response;
-        session.beginDialog('/');
-    //    session.endDialog();
+        if (results.response == 'reset') {
+            session.userData.bathrooms = null;
+            session.userData.rooms = null;
+            session.userData.price = null; 
+            session.userData.name = null;
+            session.userData.borough = null;
+            session.userData.selection = null;
+            session.userData.results = false;
+        }
+        else {
+            session.userData.borough = results.response;
+        }
+        session.beginDialog('/');    //    session.endDialog();
     }
 ]); 
 
@@ -315,8 +417,19 @@ bot.add('/manhattan_neighborhood', [
         builder.Prompts.text(session, "Which neighborhood do you prefer? downtown, midtown, upper east side, upper west side, or upper Manhattan?");
     },
     function (session, results) {
-        session.userData.manhattan_neighborhood = results.response;
-        session.beginDialog('/');
+        if (results.response == 'reset') {
+            session.userData.bathrooms = null;
+            session.userData.rooms = null;
+            session.userData.price = null; 
+            session.userData.name = null;
+            session.userData.borough = null;
+            session.userData.selection = null;
+            session.userData.results = false;
+        }
+        else {
+            session.userData.manhattan_neighborhood = results.response;
+        }
+        session.beginDialog('/');        session.beginDialog('/');
     //    session.endDialog();
     }
 ]);
@@ -326,20 +439,34 @@ bot.add('/selection', [
         builder.Prompts.text(session, "Which listing number are you interested in?");
     },
     function (session, results) {
-        session.userData.selection = results.response;
-/*        session.send('here33333');
-        session.send('map1'+ map1['listing']);
-        session.send("That's listing at " + myMap.get(session.userData.selection));
-        */
-        if (session.userData.selection == 0) 
-            session.send('Listing 0: ' + map0['listing']);
-        else if (session.userData.selection == 1) 
-            session.send('Listing 1: ' + map1['listing']);
-        else if (session.userData.selection == 2) 
-            session.send('Listing 2: ' + map2['listing']);
-        else if (session.userData.selection == 3) 
-            session.send('Listing 3: ' + map3['listing']);
 
+        if (results.response == 'reset') {
+            session.userData.bathrooms = null;
+            session.userData.rooms = null;
+            session.userData.price = null; 
+            session.userData.name = null;
+            session.userData.borough = null;
+            session.userData.selection = null;
+            session.userData.results = false;
+        }
+        else {
+    
+            session.userData.selection = results.response;
+    /*        session.send('here33333');
+            session.send('map1'+ map1['listing']);
+            session.send("That's listing at " + myMap.get(session.userData.selection));
+            */
+            if (session.userData.selection == 0) 
+                session.send('Listing 0: ' + map0['listing']);
+            else if (session.userData.selection == 1) 
+                session.send('Listing 1: ' + map1['listing']);
+            else if (session.userData.selection == 2) 
+                session.send('Listing 2: ' + map2['listing']);
+            else if (session.userData.selection == 3) 
+                session.send('Listing 3: ' + map3['listing']);
+
+            
+        }
         session.beginDialog('/');
     //    session.endDialog();
     }
